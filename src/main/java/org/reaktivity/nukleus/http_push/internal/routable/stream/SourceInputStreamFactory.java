@@ -376,10 +376,8 @@ public final class SourceInputStreamFactory
             int length)
         {
             dataRO.wrap(buffer, index, index + length);
-
             final OctetsFW payload = dataRO.payload();
-
-            processPayload(payload, dataRO.streamId());
+            target.doHttpData(this.targetId, payload);
         }
 
         private void processEnd(
@@ -394,14 +392,6 @@ public final class SourceInputStreamFactory
 
             source.removeStream(streamId);
             target.removeThrottle(targetId);
-        }
-
-        private int processPayload(
-            final OctetsFW httpPayload, long streamId)
-        {
-            // TODO forward requests with data?
-            source.doReset(streamId);
-            return 0;
         }
 
         private Optional<Route> resolveTarget(
