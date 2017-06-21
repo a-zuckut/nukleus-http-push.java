@@ -82,4 +82,15 @@ public class OpeningIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${route}/proxy/controller",
+        "${streams}/proxy.post.request/accept/client",
+        "${streams}/proxy.post.request/connect/server" })
+    public void shouldProxyPostRequest() throws Exception
+    {
+        k3po.start();
+        k3po.finish();
+    }
+
 }
